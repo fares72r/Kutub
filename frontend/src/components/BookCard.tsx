@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export type Book = {
   id: number;
   title: string;
@@ -16,7 +18,10 @@ export default function BookCard({ book }: { book: Book }) {
   const coverSrc = coverPath ? `${process.env.STRAPI_URL}${coverPath}` : null;
 
   return (
-    <article className="overflow-hidden rounded-xl border border-border bg-white">
+    <Link
+      href={`/books/${book.slug}`}
+      className="block overflow-hidden rounded-xl border border-border bg-white transition hover:border-primary"
+    >
       <div className="aspect-[3/4] bg-primary/10">
         {coverSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -39,6 +44,6 @@ export default function BookCard({ book }: { book: Book }) {
           {book.level}
         </span>
       </div>
-    </article>
+    </Link>
   );
 }
