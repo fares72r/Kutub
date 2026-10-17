@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Book } from "@/components/BookCard";
 import ReviewForm from "@/components/ReviewForm";
+import StarRating from "@/components/StarRating";
 
 type Review = {
   id: number;
@@ -34,6 +35,12 @@ export default async function BookPage({
     notFound();
   }
 
+  const reviewCount = book.reviews.length;
+  const averageRating =
+    reviewCount > 0
+      ? book.reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount
+      : 0;
+
   const coverPath = book.cover?.formats?.small?.url ?? book.cover?.url;
   const coverSrc = coverPath ? `${process.env.STRAPI_URL}${coverPath}` : null;
 
@@ -62,6 +69,19 @@ export default async function BookPage({
         <div>
           <h1 className="font-serif text-3xl font-semibold">{book.title}</h1>
           <p className="mt-1 text-foreground/70">{book.author}</p>
+          <div className="mt-3 flex items-center gap-2 text-sm">
+            {reviewCount > 0 ? (
+              <>
+                <StarRating rating={averageRating} />
+                <span className="font-medium">{averageRating.toFixed(1)}</span>
+                <span className="text-foreground/60">
+                  ({reviewCount} {reviewCount === 1 ? "review" : "reviews"})
+                </span>
+              </>
+            ) : (
+              <span className="text-foreground/60">No reviews yet</span>
+            )}
+          </div>
 
           <div className="mt-3 flex gap-2">
             <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium capitalize text-primary">
@@ -94,9 +114,7 @@ export default async function BookPage({
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{review.reviewerName}</span>
-                      <span className="text-sm text-primary">
-                        {review.rating} / 5
-                      </span>
+                      <StarRating rating={review.rating} />
                     </div>
                     <p className="mt-2 text-sm leading-relaxed">
                       {review.comment}

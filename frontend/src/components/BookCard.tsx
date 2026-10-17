@@ -1,4 +1,5 @@
 import Link from "next/link";
+import StarRating from "@/components/StarRating";
 
 export type Book = {
   id: number;
@@ -7,6 +8,7 @@ export type Book = {
   author: string;
   level: "beginner" | "intermediate" | "advanced";
   category: { name: string } | null;
+  reviews: { rating: number }[];
   cover: {
     url: string;
     alternativeText: string | null;
@@ -23,7 +25,11 @@ const levelStyles = {
 export default function BookCard({ book }: { book: Book }) {
   const coverPath = book.cover?.formats?.small?.url ?? book.cover?.url;
   const coverSrc = coverPath ? `${process.env.STRAPI_URL}${coverPath}` : null;
-
+  const reviewCount = book.reviews.length;
+  const averageRating =
+    reviewCount > 0
+      ? book.reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount
+      : 0;
   return (
     <Link
       href={`/books/${book.slug}`}
@@ -54,6 +60,17 @@ export default function BookCard({ book }: { book: Book }) {
       <div className="p-5">
         <h2 className="font-serif text-xl font-semibold">{book.title}</h2>
         <p className="mt-1 text-sm text-foreground/70">{book.author}</p>
+        <div className="mt-2 flex items-center gap-1.5 text-xs">
+          {reviewCount > 0 ? (
+            <>
+              <StarRating rating={averageRating} />
+              <span className="font-medium">{averageRating.toFixed(1)}</span>
+              <span className="text-foreground/60">({reviewCount})</span>
+            </>
+          ) : (
+            <span className="text-foreground/50">No reviews yet</span>
+          )}
+        </div>
         <span
           className={`mt-3 inline-block rounded-full px-3 py-1 text-xs font-medium capitalize ${levelStyles[book.level]}`}
         >
