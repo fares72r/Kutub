@@ -1,5 +1,7 @@
 import BookCard, { type Book } from "@/components/BookCard";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const res = await fetch(`${process.env.STRAPI_URL}/api/books?populate=*`);
   const json = await res.json();
