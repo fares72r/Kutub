@@ -29,7 +29,7 @@ export default function BookCard({ book }: { book: Book }) {
       href={`/books/${book.slug}`}
       className="block overflow-hidden rounded-xl border border-border bg-white transition hover:border-primary"
     >
-      <div className="aspect-[4/3] bg-primary/10">
+      <div className="aspect-[2/3] bg-primary/10">
         {coverSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
