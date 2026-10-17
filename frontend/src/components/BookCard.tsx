@@ -6,11 +6,18 @@ export type Book = {
   slug: string;
   author: string;
   level: "beginner" | "intermediate" | "advanced";
+  category: { name: string } | null;
   cover: {
     url: string;
     alternativeText: string | null;
     formats?: { small?: { url: string } };
   } | null;
+};
+
+const levelStyles = {
+  beginner: "bg-emerald-50 text-emerald-800",
+  intermediate: "bg-amber-50 text-amber-800",
+  advanced: "bg-rose-50 text-rose-800",
 };
 
 export default function BookCard({ book }: { book: Book }) {
@@ -22,7 +29,7 @@ export default function BookCard({ book }: { book: Book }) {
       href={`/books/${book.slug}`}
       className="block overflow-hidden rounded-xl border border-border bg-white transition hover:border-primary"
     >
-      <div className="aspect-[3/4] bg-primary/10">
+      <div className="aspect-[4/3] bg-primary/10">
         {coverSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -31,8 +38,15 @@ export default function BookCard({ book }: { book: Book }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full items-center justify-center p-4 text-center font-serif text-lg text-primary">
-            {book.title}
+          <div
+            className={`flex h-full flex-col justify-between p-5 ${levelStyles[book.level]}`}
+          >
+            <span className="text-xs font-medium uppercase tracking-wide opacity-70">
+              {book.category?.name}
+            </span>
+            <span className="font-serif text-2xl font-semibold leading-tight">
+              {book.title}
+            </span>
           </div>
         )}
       </div>
@@ -40,7 +54,9 @@ export default function BookCard({ book }: { book: Book }) {
       <div className="p-5">
         <h2 className="font-serif text-xl font-semibold">{book.title}</h2>
         <p className="mt-1 text-sm text-foreground/70">{book.author}</p>
-        <span className="mt-3 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium capitalize text-primary">
+        <span
+          className={`mt-3 inline-block rounded-full px-3 py-1 text-xs font-medium capitalize ${levelStyles[book.level]}`}
+        >
           {book.level}
         </span>
       </div>
