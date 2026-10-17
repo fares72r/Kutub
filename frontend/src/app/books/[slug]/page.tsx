@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Book } from "@/components/BookCard";
+import ReviewForm from "@/components/ReviewForm";
 
 type Review = {
   id: number;
@@ -10,6 +11,7 @@ type Review = {
 };
 
 type BookDetails = Book & {
+  documentId: string;
   description: string;
   category: { name: string } | null;
   reviews: Review[];
@@ -103,6 +105,7 @@ export default async function BookPage({
                 ))}
               </ul>
             )}
+            <ReviewForm bookDocumentId={book.documentId} slug={slug} />
           </section>
         </div>
       </div>
