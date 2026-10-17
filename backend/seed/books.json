@@ -1,0 +1,110 @@
+{
+  "categories": [
+    { "name": "Web Development", "slug": "web-development" },
+    { "name": "Programming Fundamentals", "slug": "programming-fundamentals" },
+    {
+      "name": "Algorithms & Data Structures",
+      "slug": "algorithms-data-structures"
+    },
+    { "name": "Software Engineering", "slug": "software-engineering" },
+    { "name": "Databases", "slug": "databases" }
+  ],
+  "books": [
+    {
+      "title": "Eloquent JavaScript",
+      "slug": "eloquent-javascript",
+      "author": "Marijn Haverbeke",
+      "level": "beginner",
+      "category": "programming-fundamentals",
+      "description": "A thoughtful introduction to JavaScript and programming itself. It moves from language basics to higher-order functions, asynchronous code, and browser projects, with exercises at the end of each chapter."
+    },
+    {
+      "title": "Clean Code",
+      "slug": "clean-code",
+      "author": "Robert C. Martin",
+      "level": "intermediate",
+      "category": "software-engineering",
+      "description": "A practical guide to writing code that other people can read and maintain. It covers naming, functions, comments, error handling, and refactoring through concrete before-and-after examples."
+    },
+    {
+      "title": "Introduction to Algorithms",
+      "slug": "introduction-to-algorithms",
+      "author": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein",
+      "level": "advanced",
+      "category": "algorithms-data-structures",
+      "description": "The standard university reference on algorithms. It covers sorting, graphs, dynamic programming, and complexity analysis with rigorous proofs, so expect a mathematical approach."
+    },
+    {
+      "title": "Designing Data-Intensive Applications",
+      "slug": "designing-data-intensive-applications",
+      "author": "Martin Kleppmann",
+      "level": "advanced",
+      "category": "databases",
+      "description": "Explains how modern data systems work under the hood: storage engines, replication, partitioning, transactions, and stream processing. Essential for anyone building systems that must scale."
+    },
+    {
+      "title": "You Don't Know JS Yet",
+      "slug": "you-dont-know-js-yet",
+      "author": "Kyle Simpson",
+      "level": "intermediate",
+      "category": "web-development",
+      "description": "A deep dive into how JavaScript actually works. It explains scope, closures, objects, and the prototype system, so you stop relying on guesses about the language."
+    },
+    {
+      "title": "Learning React",
+      "slug": "learning-react",
+      "author": "Alex Banks, Eve Porcello",
+      "level": "beginner",
+      "category": "web-development",
+      "description": "A hands-on introduction to building user interfaces with React. It covers components, hooks, state management, and data fetching, with modern patterns throughout."
+    },
+    {
+      "title": "Python Crash Course",
+      "slug": "python-crash-course",
+      "author": "Eric Matthes",
+      "level": "beginner",
+      "category": "programming-fundamentals",
+      "description": "A fast-paced introduction to Python for newcomers. After the fundamentals, it walks you through three real projects: a game, a data visualization, and a web application."
+    },
+    {
+      "title": "The Pragmatic Programmer",
+      "slug": "the-pragmatic-programmer",
+      "author": "David Thomas, Andrew Hunt",
+      "level": "intermediate",
+      "category": "software-engineering",
+      "description": "A collection of practical advice on the craft of software development: taking responsibility, avoiding duplication, testing, automation, and thinking like a working engineer."
+    },
+    {
+      "title": "Grokking Algorithms",
+      "slug": "grokking-algorithms",
+      "author": "Aditya Bhargava",
+      "level": "beginner",
+      "category": "algorithms-data-structures",
+      "description": "A friendly, illustrated introduction to algorithms. It explains searching, sorting, graphs, and dynamic programming with simple pictures instead of heavy math."
+    },
+    {
+      "title": "Refactoring",
+      "slug": "refactoring",
+      "author": "Martin Fowler",
+      "level": "intermediate",
+      "category": "software-engineering",
+      "description": "A catalog of small, safe code transformations that improve structure without changing behavior. It teaches when to refactor and how to do it step by step."
+    },
+    {
+      "title": "SQL Performance Explained",
+      "slug": "sql-performance-explained",
+      "author": "Markus Winand",
+      "level": "intermediate",
+      "category": "databases",
+      "description": "Focuses on how database indexes work and how to write queries that use them well. Useful for any developer who wants faster queries without guessing."
+    },
+    {
+      "title": "Eloquent Ruby",
+      "slug": "eloquent-ruby",
+      "author": "Russ Olsen",
+      "level": "intermediate",
+      "category": "programming-fundamentals",
+      "description": "Shows how to write Ruby the way experienced Rubyists do, using the language's idioms, blocks, and metaprogramming features in a natural style."
+    }
+  ]
+}
