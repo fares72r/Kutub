@@ -1,4 +1,5 @@
 import BookCard, { type Book } from "@/components/BookCard";
+import SearchFilters, { type Category } from "@/components/SearchFilters";
 
 export const dynamic = "force-dynamic";
 
@@ -20,9 +21,12 @@ export default async function Home({
   if (level) params.set("filters[level][$eq]", level);
   if (category) params.set("filters[category][slug][$eq]", category);
 
-  const res = await fetch(`${process.env.STRAPI_URL}/api/books?${params}`);
-  const json = await res.json();
-  const books: Book[] = json.data;
+  const [booksRes, categoriesRes] = await Promise.all([
+    fetch(`${process.env.STRAPI_URL}/api/books?${params}`),
+    fetch(`${process.env.STRAPI_URL}/api/categories?sort=name`),
+  ]);
+  const books: Book[] = (await booksRes.json()).data;
+  const categories: Category[] = (await categoriesRes.json()).data;
 
   return (
     <main>
@@ -48,6 +52,12 @@ export default async function Home({
         <h2 className="font-serif text-2xl font-semibold">
           All books ({books.length})
         </h2>
+        <SearchFilters
+          categories={categories}
+          q={q}
+          level={level}
+          category={category}
+        />
 
         {books.length === 0 ? (
           <p className="mt-6 text-foreground/70">
