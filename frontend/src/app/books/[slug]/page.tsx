@@ -2,9 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Book } from "@/components/BookCard";
 
+type Review = {
+  id: number;
+  reviewerName: string;
+  rating: number;
+  comment: string;
+};
+
 type BookDetails = Book & {
   description: string;
   category: { name: string } | null;
+  reviews: Review[];
 };
 
 export default async function BookPage({
@@ -65,6 +73,37 @@ export default async function BookPage({
           </div>
 
           <p className="mt-6 leading-relaxed">{book.description}</p>
+
+          <section className="mt-10">
+            <h2 className="font-serif text-2xl font-semibold">
+              Reviews ({book.reviews.length})
+            </h2>
+
+            {book.reviews.length === 0 ? (
+              <p className="mt-3 text-foreground/70">
+                No reviews yet. Be the first to review this book.
+              </p>
+            ) : (
+              <ul className="mt-4 space-y-4">
+                {book.reviews.map((review) => (
+                  <li
+                    key={review.id}
+                    className="rounded-xl border border-border bg-white p-4"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">{review.reviewerName}</span>
+                      <span className="text-sm text-primary">
+                        {review.rating} / 5
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm leading-relaxed">
+                      {review.comment}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
         </div>
       </div>
     </main>
