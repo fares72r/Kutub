@@ -11,7 +11,7 @@ type Review = {
   comment: string;
 };
 
-type BookDetails = Book & {
+type BookDetails = Omit<Book, "reviews"> & {
   documentId: string;
   description: string;
   category: { name: string } | null;
