@@ -48,7 +48,7 @@ export default async function Home({
         </div>
       </section>
 
-      <section id="books" className="mx-auto max-w-6xl px-4 py-12">
+      <section id="books" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-12">
         <h2 className="font-serif text-2xl font-semibold">
           All books ({books.length})
         </h2>

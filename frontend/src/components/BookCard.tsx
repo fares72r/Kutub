@@ -35,7 +35,7 @@ export default function BookCard({ book }: { book: Book }) {
   return (
     <Link
       href={`/books/${book.slug}`}
-      className="block overflow-hidden rounded-xl border border-border bg-surface transition hover:border-primary"
+      className="block overflow-hidden rounded-xl border border-border bg-surface transition duration-200 hover:border-primary motion-safe:hover:-translate-y-1 hover:shadow-lg"
     >
       <div className="aspect-[2/3] bg-primary/10">
         {coverSrc ? (

@@ -3,7 +3,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Header() {
   return (
-    <header className="border-b border-border">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
         <Link
           href="/"
