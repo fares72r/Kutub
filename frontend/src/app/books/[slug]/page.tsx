@@ -6,6 +6,7 @@ import ReviewForm from "@/components/ReviewForm";
 import StarRating from "@/components/StarRating";
 import { getAverageRating } from "@/lib/ratings";
 import type { Metadata } from "next";
+import RatingBreakdown from "@/components/RatingBreakdown";
 
 type Review = {
   id: number;
@@ -144,6 +145,10 @@ export default async function BookPage({
             <h2 className="font-serif text-2xl font-semibold">
               Reviews ({book.reviews.length})
             </h2>
+
+            {book.reviews.length > 0 && (
+              <RatingBreakdown reviews={book.reviews} />
+            )}
 
             {book.reviews.length === 0 ? (
               <p className="mt-3 text-foreground/70">
