@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "About | Kutub",
+  title: "About",
   description: "What Kutub is and how it was built.",
 };
 

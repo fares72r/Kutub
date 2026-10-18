@@ -15,7 +15,7 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "Kutub",
+  title: { default: "Kutub", template: "%s | Kutub" },
   description: "A curated guide to programming books.",
 };
 

@@ -5,6 +5,7 @@ import BookCard from "@/components/BookCard";
 import ReviewForm from "@/components/ReviewForm";
 import StarRating from "@/components/StarRating";
 import { getAverageRating } from "@/lib/ratings";
+import type { Metadata } from "next";
 
 type Review = {
   id: number;
@@ -20,6 +21,43 @@ type BookDetails = Omit<Book, "reviews"> & {
   reviews: Review[];
 };
 
+async function getBook(slug: string): Promise<BookDetails | undefined> {
+  const res = await fetch(
+    `${process.env.STRAPI_URL}/api/books?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
+  );
+  const json = await res.json();
+  return json.data[0];
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const book = await getBook(slug);
+
+  if (!book) return { title: "Book not found" };
+
+  const description =
+    book.description.length > 160
+      ? `${book.description.slice(0, 157).trimEnd()}...`
+      : book.description;
+  const coverPath = book.cover?.formats?.small?.url ?? book.cover?.url;
+
+  return {
+    title: book.title,
+    description,
+    openGraph: {
+      title: `${book.title} by ${book.author}`,
+      description,
+      images: coverPath
+        ? [{ url: `${process.env.STRAPI_URL}${coverPath}`, alt: book.title }]
+        : undefined,
+    },
+  };
+}
+
 export default async function BookPage({
   params,
 }: {
@@ -27,11 +65,7 @@ export default async function BookPage({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(
-    `${process.env.STRAPI_URL}/api/books?filters[slug][$eq]=${slug}&populate=*`,
-  );
-  const json = await res.json();
-  const book: BookDetails | undefined = json.data[0];
+  const book = await getBook(slug);
 
   if (!book) {
     notFound();
