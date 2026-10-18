@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Book } from "@/components/BookCard";
+import BookCard from "@/components/BookCard";
 import ReviewForm from "@/components/ReviewForm";
 import StarRating from "@/components/StarRating";
 import { getAverageRating } from "@/lib/ratings";
@@ -15,7 +16,7 @@ type Review = {
 type BookDetails = Omit<Book, "reviews"> & {
   documentId: string;
   description: string;
-  category: { name: string } | null;
+  category: { name: string; slug: string } | null;
   reviews: Review[];
 };
 
@@ -34,6 +35,17 @@ export default async function BookPage({
 
   if (!book) {
     notFound();
+  }
+
+  let similar: Book[] = [];
+  if (book.category) {
+    const p = new URLSearchParams();
+    p.set("populate", "*");
+    p.set("filters[category][slug][$eq]", book.category.slug);
+    p.set("filters[slug][$ne]", slug);
+    p.set("pagination[limit]", "3");
+    const similarRes = await fetch(`${process.env.STRAPI_URL}/api/books?${p}`);
+    similar = similarRes.ok ? (await similarRes.json()).data : [];
   }
 
   const reviewCount = book.reviews.length;
@@ -125,6 +137,19 @@ export default async function BookPage({
           </section>
         </div>
       </div>
+
+      {similar.length > 0 && (
+        <section className="mt-16">
+          <h2 className="font-serif text-2xl font-semibold">
+            More in {book.category?.name}
+          </h2>
+          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {similar.map((b) => (
+              <BookCard key={b.id} book={b} />
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }
