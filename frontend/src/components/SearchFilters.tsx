@@ -10,13 +10,15 @@ export default function SearchFilters({
   q,
   level,
   category,
+  sort,
 }: {
   categories: Category[];
   q?: string;
   level?: string;
   category?: string;
+  sort?: string;
 }) {
-  const hasFilters = Boolean(q || level || category);
+  const hasFilters = Boolean(q || level || category || sort);
 
   return (
     <form
@@ -59,9 +61,20 @@ export default function SearchFilters({
         <option value="advanced">Advanced</option>
       </select>
 
+      <select
+        name="sort"
+        defaultValue={sort ?? "newest"}
+        aria-label="Sort by"
+        className={fieldClass}
+      >
+        <option value="newest">Newest</option>
+        <option value="rating">Top rated</option>
+        <option value="title">Title (A-Z)</option>
+      </select>
+
       <button
         type="submit"
-        className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+        className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white"
       >
         Search
       </button>

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Book } from "@/components/BookCard";
 import ReviewForm from "@/components/ReviewForm";
 import StarRating from "@/components/StarRating";
+import { getAverageRating } from "@/lib/ratings";
 
 type Review = {
   id: number;
@@ -36,10 +37,7 @@ export default async function BookPage({
   }
 
   const reviewCount = book.reviews.length;
-  const averageRating =
-    reviewCount > 0
-      ? book.reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount
-      : 0;
+  const averageRating = getAverageRating(book.reviews);
 
   const coverPath = book.cover?.formats?.small?.url ?? book.cover?.url;
   const coverSrc = coverPath ? `${process.env.STRAPI_URL}${coverPath}` : null;

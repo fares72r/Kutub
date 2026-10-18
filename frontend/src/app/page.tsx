@@ -1,16 +1,22 @@
 import BookCard, { type Book } from "@/components/BookCard";
 import SearchFilters, { type Category } from "@/components/SearchFilters";
+import { getAverageRating } from "@/lib/ratings";
 
 export const dynamic = "force-dynamic";
 
-type SearchParams = { q?: string; level?: string; category?: string };
+type SearchParams = {
+  q?: string;
+  level?: string;
+  category?: string;
+  sort?: string;
+};
 
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<SearchParams>;
 }) {
-  const { q, level, category } = await searchParams;
+  const { q, level, category, sort } = await searchParams;
 
   const params = new URLSearchParams();
   params.set("populate", "*");
@@ -21,11 +27,23 @@ export default async function Home({
   if (level) params.set("filters[level][$eq]", level);
   if (category) params.set("filters[category][slug][$eq]", category);
 
+  const strapiSort: Record<string, string> = {
+    newest: "createdAt:desc",
+    title: "title:asc",
+  };
+  params.set("sort", strapiSort[sort ?? ""] ?? "createdAt:desc");
+
   const [booksRes, categoriesRes] = await Promise.all([
     fetch(`${process.env.STRAPI_URL}/api/books?${params}`),
     fetch(`${process.env.STRAPI_URL}/api/categories?sort=name`),
   ]);
-  const books: Book[] = (await booksRes.json()).data;
+  const fetched: Book[] = (await booksRes.json()).data;
+  const books =
+    sort === "rating"
+      ? [...fetched].sort(
+          (a, b) => getAverageRating(b.reviews) - getAverageRating(a.reviews),
+        )
+      : fetched;
   const categories: Category[] = (await categoriesRes.json()).data;
 
   return (
@@ -57,6 +75,7 @@ export default async function Home({
           q={q}
           level={level}
           category={category}
+          sort={sort}
         />
 
         {books.length === 0 ? (

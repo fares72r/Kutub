@@ -1,5 +1,6 @@
 import Link from "next/link";
 import StarRating from "@/components/StarRating";
+import { getAverageRating } from "@/lib/ratings";
 
 export type Book = {
   id: number;
@@ -28,10 +29,7 @@ export default function BookCard({ book }: { book: Book }) {
   const coverPath = book.cover?.formats?.small?.url ?? book.cover?.url;
   const coverSrc = coverPath ? `${process.env.STRAPI_URL}${coverPath}` : null;
   const reviewCount = book.reviews.length;
-  const averageRating =
-    reviewCount > 0
-      ? book.reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount
-      : 0;
+  const averageRating = getAverageRating(book.reviews);
   return (
     <Link
       href={`/books/${book.slug}`}
