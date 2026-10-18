@@ -2,7 +2,8 @@ import Link from "next/link";
 
 export type Category = { id: number; name: string; slug: string };
 
-const fieldClass = "rounded-lg border border-border bg-white px-3 py-2 text-sm";
+const fieldClass =
+  "rounded-lg border border-border bg-surface px-3 py-2 text-sm";
 
 export default function SearchFilters({
   categories,
@@ -60,7 +61,7 @@ export default function SearchFilters({
 
       <button
         type="submit"
-        className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white"
+        className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
       >
         Search
       </button>

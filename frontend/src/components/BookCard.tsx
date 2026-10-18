@@ -17,9 +17,11 @@ export type Book = {
 };
 
 const levelStyles = {
-  beginner: "bg-emerald-50 text-emerald-800",
-  intermediate: "bg-amber-50 text-amber-800",
-  advanced: "bg-rose-50 text-rose-800",
+  beginner:
+    "bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200",
+  intermediate:
+    "bg-violet-50 text-violet-800 dark:bg-violet-950 dark:text-violet-200",
+  advanced: "bg-rose-50 text-rose-800 dark:bg-rose-950 dark:text-rose-200",
 };
 
 export default function BookCard({ book }: { book: Book }) {
@@ -33,7 +35,7 @@ export default function BookCard({ book }: { book: Book }) {
   return (
     <Link
       href={`/books/${book.slug}`}
-      className="block overflow-hidden rounded-xl border border-border bg-white transition hover:border-primary"
+      className="block overflow-hidden rounded-xl border border-border bg-surface transition hover:border-primary"
     >
       <div className="aspect-[2/3] bg-primary/10">
         {coverSrc ? (

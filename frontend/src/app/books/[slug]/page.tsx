@@ -110,7 +110,7 @@ export default async function BookPage({
                 {book.reviews.map((review) => (
                   <li
                     key={review.id}
-                    className="rounded-xl border border-border bg-white p-4"
+                    className="rounded-xl border border-border bg-surface p-4"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{review.reviewerName}</span>

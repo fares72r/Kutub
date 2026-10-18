@@ -23,7 +23,7 @@ export default function Error({ reset }: { error: Error; reset: () => void }) {
       </p>
       <button
         onClick={handleRetry}
-        className="mt-6 rounded-lg bg-primary px-4 py-2 font-medium text-white"
+        className="mt-6 rounded-lg bg-primary px-4 py-2 font-medium text-primary-foreground"
       >
         Try again
       </button>

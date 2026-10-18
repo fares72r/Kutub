@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Header() {
   return (
@@ -10,12 +11,15 @@ export default function Header() {
         >
           Kutub
         </Link>
-        <Link
-          href="/about"
-          className="text-base font-medium hover:text-primary"
-        >
-          About
-        </Link>
+        <div className="flex items-center gap-5">
+          <Link
+            href="/about"
+            className="text-base font-medium hover:text-primary"
+          >
+            About
+          </Link>
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );

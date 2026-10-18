@@ -19,6 +19,18 @@ export const metadata: Metadata = {
   description: "A curated guide to programming books.",
 };
 
+const themeScript = `
+(function () {
+  try {
+    var saved = localStorage.getItem("theme");
+    var dark = saved
+      ? saved === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (dark) document.documentElement.classList.add("dark");
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -27,9 +39,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${sourceSerif.variable} motion-safe:scroll-smooth`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="flex min-h-screen flex-col">
         <Header />
         <div className="flex-1">{children}</div>

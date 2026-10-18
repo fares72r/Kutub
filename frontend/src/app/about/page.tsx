@@ -40,7 +40,7 @@ export default function AboutPage() {
         {stack.map((item) => (
           <li
             key={item.name}
-            className="rounded-xl border border-border bg-white p-4"
+            className="rounded-xl border border-border bg-surface p-4"
           >
             <p className="font-medium">{item.name}</p>
             <p className="mt-1 text-sm text-foreground/70">{item.role}</p>

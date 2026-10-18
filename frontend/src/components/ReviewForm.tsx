@@ -29,7 +29,7 @@ export default function ReviewForm({
           id="reviewerName"
           name="reviewerName"
           type="text"
-          className="mt-1 w-full rounded-lg border border-border bg-white px-3 py-2"
+          className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2"
         />
         {state.errors?.reviewerName && (
           <p className="mt-1 text-sm text-red-600">
@@ -46,7 +46,7 @@ export default function ReviewForm({
           id="rating"
           name="rating"
           defaultValue="5"
-          className="mt-1 w-full rounded-lg border border-border bg-white px-3 py-2"
+          className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2"
         >
           {[5, 4, 3, 2, 1].map((n) => (
             <option key={n} value={n}>
@@ -67,7 +67,7 @@ export default function ReviewForm({
           id="comment"
           name="comment"
           rows={4}
-          className="mt-1 w-full rounded-lg border border-border bg-white px-3 py-2"
+          className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2"
         />
         {state.errors?.comment && (
           <p className="mt-1 text-sm text-red-600">{state.errors.comment}</p>
@@ -77,7 +77,7 @@ export default function ReviewForm({
       <button
         type="submit"
         disabled={pending}
-        className="rounded-lg bg-primary px-4 py-2 font-medium text-white disabled:opacity-60"
+        className="rounded-lg bg-primary px-4 py-2 font-medium text-primary-foreground disabled:opacity-60"
       >
         {pending ? "Submitting..." : "Submit review"}
       </button>
