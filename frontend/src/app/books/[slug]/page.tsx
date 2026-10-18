@@ -7,6 +7,8 @@ import StarRating from "@/components/StarRating";
 import { getAverageRating } from "@/lib/ratings";
 import type { Metadata } from "next";
 import RatingBreakdown from "@/components/RatingBreakdown";
+import { getSavedSlugs } from "@/lib/saved";
+import { toggleSaved } from "@/app/saved/actions";
 
 type Review = {
   id: number;
@@ -72,6 +74,8 @@ export default async function BookPage({
     notFound();
   }
 
+  const isSaved = (await getSavedSlugs()).includes(slug);
+
   let similar: Book[] = [];
   if (book.category) {
     const p = new URLSearchParams();
@@ -112,7 +116,34 @@ export default async function BookPage({
         </div>
 
         <div>
-          <h1 className="font-serif text-3xl font-semibold">{book.title}</h1>
+          <div className="flex items-start justify-between gap-3">
+            <h1 className="font-serif text-3xl font-semibold">{book.title}</h1>
+            <form action={toggleSaved.bind(null, slug)}>
+              <button
+                type="submit"
+                aria-label={
+                  isSaved ? "Remove from saved books" : "Save for later"
+                }
+                title={isSaved ? "Remove from saved books" : "Save for later"}
+                className={`rounded-lg border p-2 transition hover:border-primary hover:text-primary ${
+                  isSaved ? "border-primary text-primary" : "border-border"
+                }`}
+              >
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill={isSaved ? "currentColor" : "none"}
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z" />
+                </svg>
+              </button>
+            </form>
+          </div>
           <p className="mt-1 text-foreground/70">{book.author}</p>
           <div className="mt-3 flex items-center gap-2 text-sm">
             {reviewCount > 0 ? (

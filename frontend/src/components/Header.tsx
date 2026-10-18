@@ -13,6 +13,12 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-5">
           <Link
+            href="/saved"
+            className="text-base font-medium hover:text-primary"
+          >
+            Saved
+          </Link>
+          <Link
             href="/about"
             className="text-base font-medium hover:text-primary"
           >
